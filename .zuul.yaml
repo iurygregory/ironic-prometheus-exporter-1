@@ -1,5 +1,30 @@
+- job:
+    name: ironic-prometheus-exporter-tempest-redfish
+    description: Job that installs the exporter with redfish driver.
+    parent: sushy-tools-tempest-ironic-partition-redfish-src
+    irrelevant-files:
+      - ^.*\.rst$
+      - ^doc/.*$
+      - ^ironic_prometheus_exporter/tests/*$
+      - ^releasenotes/.$
+      - ^setup.cfg$
+      - ^tox.ini$
+      - ^test-requirements.txt$
+    vars:
+      devstack_plugins:
+        ironic-prometheus-exporter: https://opendev.org/openstack/ironic-prometheus-exporter
+      devstack_services:
+        ironic_prometheus_exporter: True
+
 - project:
     templates:
       - check-requirements
       - openstack-python3-ussuri-jobs
       - release-notes-jobs-python3
+    check:
+      jobs:
+        - ironic-prometheus-exporter-tempest-redfish
+    gate:
+      queue: ironic
+      jobs:
+        - ironic-prometheus-exporter-tempest-redfish
