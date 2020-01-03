@@ -10,8 +10,6 @@ IRONIC_PROMETHEUS_EXPORTER_LOCATION=${IRONIC_VM_LOG_DIR:-/tmp/ironic_prometheus_
 COLLECT_DATA_UNDEPLOYED_NODES=$(trueorfalse True COLLECT_DATA_UNDEPLOYED_NODES)
 
 function install_ironic_prometheus_exporter {
-    pip_install_gr "gunicorn"
-
     git_clone_by_name "ironic-prometheus-exporter"
     setup_dev_lib "ironic-prometheus-exporter"
 }
