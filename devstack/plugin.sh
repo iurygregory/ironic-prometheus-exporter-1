@@ -25,7 +25,7 @@ function configure_ironic_prometheus_exporter {
 
     local cmd
 
-    cmd=$(which gunicorn)
+    cmd=$(which ${gunicorn})
     cmd+=" -b ${HOST_IP}:${IRONIC_PROMETHEUS_EXPORTER_PORT}"
     cmd+=" --env FLASK_DEBUG=1"
     cmd+=" -w 4 ironic_prometheus_exporter.app.wsgi:application"
