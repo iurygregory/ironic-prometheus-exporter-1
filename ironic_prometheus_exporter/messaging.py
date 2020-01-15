@@ -44,16 +44,21 @@ class PrometheusFileDriver(notifier.Driver):
 
     def notify(self, ctxt, message, priority, retry):
         try:
+
             registry = CollectorRegistry()
 
             event_type = message['event_type']
+            LOG.debug('Received message with event_type: %s' % event_type)
             node_message = message['payload']
+            LOG.debug('Registring Timestamp metric')
             header.timestamp_registry(node_message, registry)
 
             if event_type == 'hardware.ipmi.metrics':
+                LOG.debug('Registring ipmi metrics')
                 ipmi.category_registry(node_message, registry)
 
             elif event_type == 'hardware.redfish.metrics':
+                LOG.debug('Registring redfish metrics')
                 redfish.category_registry(node_message, registry)
 
             nodeFile = os.path.join(

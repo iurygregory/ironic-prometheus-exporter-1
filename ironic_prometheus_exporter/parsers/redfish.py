@@ -58,6 +58,7 @@ def build_temperature_metrics(node_message):
             ]
         }
     """
+    LOG.debug('Building Temperature metrics')
     payload = node_message
 
     for key in ('payload', 'Temperature'):
@@ -73,7 +74,7 @@ def build_temperature_metrics(node_message):
 
         labels['entity_id'] = sensor_data['physical_context']
         labels['sensor_id'] = sensor_data['sensor_number']
-
+        LOG.debug('Temperature sensor_id %s' % sensor_id)
         value = sensor_data['reading_celsius']
 
         metrics[metric].append((value, labels))
@@ -111,6 +112,7 @@ def build_power_metrics(node_message):
             ]
         }
     """
+    LOG.debug('Building Power metrics')
     payload = node_message
 
     for key in ('payload', 'Power'):
@@ -163,9 +165,11 @@ def build_fan_metrics(node_message):
             ]
         }
     """
+    LOG.debug('Building fan metrics')
     payload = node_message
 
     for key in ('payload', 'Fan'):
+        LOG.debug('Found key %s' % key)
         payload = payload.get(key, {})
 
     metrics = collections.defaultdict(list)
@@ -177,6 +181,8 @@ def build_fan_metrics(node_message):
 
         labels['entity_id'] = sensor_data['physical_context']
         labels['sensor_id'] = sensor_data['identity']
+        LOG.debug('Fan physical_context %s' % sensor_data['physical_context'])
+        LOG.debug('Fan identity %s' % sensor_data['identity'])
 
         value = sensor_data['health'] != 'OK' and 1 or 0
 
