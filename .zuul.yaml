@@ -14,7 +14,7 @@
       devstack_plugins:
         ironic-prometheus-exporter: https://opendev.org/openstack/ironic-prometheus-exporter
       devstack_services:
-        ironic_prometheus_exporter: True
+        ironic-prometheus-exporter: True
 
 - project:
     templates:
