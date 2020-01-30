@@ -256,6 +256,9 @@ def category_registry(node_message, metrics_registry):
 
     for metric, details in metrics.items():
 
+        LOG.debug('Going to create metric: %s' % str(metric))
+        LOG.debug('Metrics details: %s' % str(details))
+
         for value, labels in details:
 
             desc = descriptions.get_metric_description('redfish', metric)
