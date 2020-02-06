@@ -259,11 +259,11 @@ def category_registry(node_message, metrics_registry):
         LOG.debug('Going to create metric: %s' % str(metric))
         LOG.debug('Metrics details: %s' % str(details))
 
+        # details is a tuple with a list with two elements value, labels
+        metric_labels = details[0][1]
+        desc = descriptions.get_metric_description('redfish', metric)
+        gauge = Gauge(metric, desc, labelnames=list(metric_labels),
+                      registry=metrics_registry)
+
         for value, labels in details:
-
-            desc = descriptions.get_metric_description('redfish', metric)
-
-            gauge = Gauge(metric, desc, labelnames=labels,
-                          registry=metrics_registry)
-
             gauge.labels(**labels).set(value)
